@@ -27,19 +27,19 @@ hugo version
 Clone the repo:
 
 ```bash
-git clone https://github.com/heka95/patoune.git
+git clone https://github.com/patoune95/patoune.git
 cd patoune
 ```
 
 Start the development server:
 
 ```bash
-hugo server -D
+hugo server -D --baseURL http://localhost:1313/
 ```
 
-The site is available at [http://localhost:1313/patoune/](http://localhost:1313/patoune/)
+The site is available at [http://localhost:1313/](http://localhost:1313/)
 
-> The `-D` flag includes draft posts. Remove it to preview only published content.
+> Use `--baseURL http://localhost:1313/` to override the production base URL locally. The `-D` flag includes draft posts.
 
 ## Write a new post
 

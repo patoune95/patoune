@@ -1,6 +1,6 @@
 # Patoune Blog
 
-Hugo blog hosted on GitHub Pages at `https://heka95.github.io/patoune/`.
+Hugo blog hosted on GitHub Pages at `https://patoune95.github.io/patoune/`.
 
 ## Stack
 

@@ -3,10 +3,10 @@ languageCode = "fr"
 title = "Patoune"
 theme = "PaperMod"
 [pagination]
-  pagerSize = 5
+  pagerSize = 6
 
 [params]
-  author = "Heka95"
+  author = "patoune95"
   description = "Technical blog"
   ShowReadingTime = true
   ShowShareButtons = false
@@ -15,6 +15,16 @@ theme = "PaperMod"
   ShowCodeCopyButtons = true
   ShowToc = true
   defaultTheme = "auto"
+  mainSections = ["posts"]
+
+[params.label]
+  text = "Patoune"
+  icon = "/assets/images/patoune_logo_cat.png"
+  iconHeight = 32
+
+[params.cover]
+  hiddenInList = false
+  hiddenInSingle = false
 
 [params.homeInfoParams]
   Title = "Patoune"
@@ -22,7 +32,7 @@ theme = "PaperMod"
 
 [[params.socialIcons]]
   name = "github"
-  url = "https://github.com/heka95"
+  url = "https://github.com/patoune95"
 
 [[params.socialIcons]]
   name = "linkedin"

@@ -1,0 +1,212 @@
+/* ── Patoune Theme ── */
+
+/* Fonts */
+:root {
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --accent: #8b5cf6;
+    --accent-hover: #7c3aed;
+    --radius: 14px;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --card-shadow-hover: 0 12px 32px rgba(139, 92, 246, 0.18);
+}
+
+:root[data-theme="dark"] {
+    --theme: #0e0e14;
+    --entry: #17161f;
+    --primary: #e8e6f0;
+    --secondary: #9e9baf;
+    --tertiary: #2e2b3d;
+    --border: #252333;
+    --accent: #a78bfa;
+    --accent-hover: #8b5cf6;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 12px 32px rgba(167, 139, 250, 0.2);
+}
+
+:root {
+    --theme: #f5f4fc;
+    --entry: #ffffff;
+    --border: #e8e5f5;
+}
+
+body {
+    font-family: var(--font-family);
+}
+
+/* ── Header ── */
+.header {
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    background: color-mix(in srgb, var(--theme) 90%, transparent);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo a {
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.logo a img {
+    border-radius: 50% !important;
+}
+
+.menu a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--secondary);
+    transition: color 0.15s ease;
+}
+
+.menu a:hover,
+.menu .active {
+    color: var(--accent) !important;
+    text-decoration-color: var(--accent) !important;
+}
+
+/* ── Home intro ── */
+.home-info {
+    padding: 3rem 0 2rem;
+}
+
+.home-info .entry-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent) 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Post grid ── */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+/* ── Post card ── */
+.post-entry {
+    padding: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-entry:hover,
+.post-entry:focus-within {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--accent);
+}
+
+/* Cover image */
+.post-entry .entry-cover {
+    margin: 0;
+    height: 195px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.post-entry .entry-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    transition: transform 0.4s ease;
+}
+
+.post-entry:hover .entry-cover img {
+    transform: scale(1.04);
+}
+
+/* Card body */
+.post-entry-body {
+    padding: 1.1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.post-entry .entry-header {
+    padding: 0;
+}
+
+.post-entry .entry-header h2 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--primary);
+}
+
+.post-entry .entry-content {
+    padding: 0;
+    margin: 0.5rem 0 0.75rem;
+    font-size: 13.5px;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.post-entry .entry-footer {
+    padding: 0;
+    font-size: 12px;
+    color: var(--secondary);
+}
+
+/* Tags chip style */
+.post-entry .entry-footer a {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s ease;
+}
+
+.post-entry .entry-footer a:hover {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* ── Single post ── */
+.post-single .entry-cover img {
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+}
+
+h1, h2, h3 {
+    letter-spacing: -0.3px;
+}
+
+.post-content a {
+    color: var(--accent);
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.post-content a:hover {
+    color: var(--accent-hover);
+    text-decoration-color: var(--accent-hover);
+}
+
+/* Code blocks */
+.post-content pre {
+    border-radius: 10px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .post-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-info .entry-header h1 {
+        font-size: 1.6rem;
+    }
+}
