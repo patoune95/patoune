@@ -1,0 +1,43 @@
+baseURL = "https://heka95.github.io/patoune/"
+languageCode = "fr"
+title = "Patoune"
+theme = "PaperMod"
+[pagination]
+  pagerSize = 5
+
+[params]
+  author = "Heka95"
+  description = "Technical blog"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  defaultTheme = "auto"
+
+[params.homeInfoParams]
+  Title = "Patoune"
+  Content = "Technical blog · Lead Tech · France"
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/heka95"
+
+[[params.socialIcons]]
+  name = "linkedin"
+  url = "https://www.linkedin.com/in/thomas-l-a365153a/"
+
+[menu]
+  [[menu.main]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 1
+  [[menu.main]]
+    name = "Tags"
+    url = "/tags/"
+    weight = 2
+  [[menu.main]]
+    name = "Archives"
+    url = "/archives/"
+    weight = 3
