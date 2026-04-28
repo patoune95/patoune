@@ -1,4 +1,4 @@
-# Patoune — Technical Blog
+# Patoune-IT — Technical Blog
 
 Personal technical blog built with [Hugo](https://gohugo.io/) and the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme, hosted on GitHub Pages.
 

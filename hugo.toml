@@ -1,12 +1,12 @@
 baseURL = "https://patoune95.github.io/patoune/"
 languageCode = "fr"
-title = "Patoune"
+title = "Patoune-IT"
 theme = "PaperMod"
 [pagination]
   pagerSize = 6
 
 [params]
-  author = "patoune95"
+  author = "Thomas L."
   description = "Technical blog"
   ShowReadingTime = true
   ShowShareButtons = false
@@ -18,7 +18,7 @@ theme = "PaperMod"
   mainSections = ["posts"]
 
 [params.label]
-  text = "Patoune"
+  text = "Patoune-IT"
   icon = "/assets/images/patoune_logo_cat.png"
   iconHeight = 32
 
@@ -27,8 +27,8 @@ theme = "PaperMod"
   hiddenInSingle = false
 
 [params.homeInfoParams]
-  Title = "Patoune"
-  Content = "Technical blog · Lead Tech · France"
+  Title = "Patoune-IT"
+  Content = "Technical blog · Lead Tech · Paris, France"
 
 [[params.socialIcons]]
   name = "github"
