@@ -1,7 +1,7 @@
 ---
 title: "Pourquoi j'ai migré de Jekyll vers Hugo"
 date: 2026-04-28T12:00:00+02:00
-draft: true
+draft: false
 tags:
   - hugo
   - jekyll
