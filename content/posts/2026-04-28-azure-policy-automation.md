@@ -1,5 +1,5 @@
 ---
-title: "Gestion automatisée des Azure Policies"
+title: "Gérer les Azure Policies à l'échelle : une approche via Terraform et azapi"
 date: 2026-04-28T10:00:00+02:00
 draft: true
 tags:
@@ -9,7 +9,7 @@ tags:
   - iac
   - automation
 cover:
-  image: assets/images/azure-policy/cover.png
+  image: assets/images/azure-policy-terraform.jpeg
   alt: "Azure Policy Automation"
 ---
 
@@ -191,7 +191,7 @@ Les problèmes concrets qu'on rencontre :
 
 **Audit et review :** les changements de policies ont un impact direct sur la sécurité et la conformité. Il faut pouvoir les soumettre à une revue (pull request), les tester avant déploiement, et avoir un historique clair de ce qui a changé et pourquoi.
 
-## Notre approche : un catalogue versionné
+## Mon approche : un catalogue versionné
 
 L'idée est de traiter les policies comme du code : un repository git comme source de vérité, une structure de catalogue claire, et un pipeline CI/CD qui gère le déploiement.
 
@@ -502,7 +502,7 @@ Cela dit, cette architecture a ses limites.
 - **L'absence de pipeline de validation.** On peut tagger une version et l'appliquer, mais rien n'automatise la vérification de conformité après déploiement ni ne déclenche automatiquement la bascule vers `Default` une fois le seuil atteint.
 - **Les mises à jour cross-BU restent manuelles.** Quand une politique de sécurité doit être appliquée à toutes les BUs simultanément (incident, nouvelle exigence réglementaire), il faut ouvrir autant de PRs qu'il y a de BUs. C'est lent et source d'oubli.
 
-Pour aller plus loin, il manque un outil capable de piloter ce cycle de vie de bout en bout : visualiser l'état d'enforcement de chaque assignment à travers tout le tenant, déclencher les transitions de mode de façon contrôlée, et alerter sur les overrides qui traînent. C'est le sujet du prochain article.
+Pour aller plus loin, il manque un outil capable de piloter ce cycle de vie de bout en bout : visualiser l'état d'enforcement de chaque assignment à travers tout le tenant, déclencher les transitions de mode de façon contrôlée, et alerter sur les overrides qui traînent. ça sera possiblement le sujet d'un futur article.
 
 ## Liens
 
