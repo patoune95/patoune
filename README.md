@@ -43,11 +43,71 @@ The site is available at [http://localhost:1313/](http://localhost:1313/)
 
 ## Write a new post
 
-```bash
-hugo new posts/YYYY-MM-DD-my-post-title.md
+The blog is bilingual (French / English). Posts use **Hugo Page Bundles**: each post is a **single folder** in `content/posts/` containing the content files per language and all shared assets.
+
+```
+content/posts/
+└── YYYY-MM-DD-mon-titre/
+    ├── index.fr.md       ← French version
+    ├── index.en.md       ← English version (optional)
+    ├── cover.jpg         ← cover image (always named "cover")
+    └── screenshot.png    ← any other image used in the article
 ```
 
-Edit the generated file in `content/posts/`, then set `draft: false` when ready to publish.
+Hugo automatically links `index.fr.md` and `index.en.md` as translations of the same post — no extra configuration needed. A post without a translation is simply not shown in the other language.
+
+### 1. Create the post folder and write the French version
+
+```bash
+mkdir content/posts/YYYY-MM-DD-mon-titre
+# then create index.fr.md inside it
+```
+
+### 2. Frontmatter template
+
+```yaml
+---
+title: "Titre de l'article"
+date: YYYY-MM-DDTHH:MM:SS+02:00
+draft: false
+tags:
+  - tag1
+  - tag2
+cover:
+  image: cover.jpg      ← filename relative to the post folder
+  alt: "Description de l'image"
+---
+```
+
+Set `draft: true` while writing, then switch to `draft: false` when ready to publish.
+
+### 3. Reference images in the article
+
+Since images are in the same folder as `index.fr.md`, reference them by filename only:
+
+```markdown
+![Description](screenshot.png)
+![Schema](diagram.svg)
+```
+
+No path prefix needed — Hugo resolves them automatically as page resources.
+
+### 4. Add a translation
+
+To add an English version, create `index.en.md` in the same folder with the translated content:
+
+```
+content/posts/2026-05-01-mon-titre/
+  ├── index.fr.md    ← French
+  ├── index.en.md    ← English (same images, no duplication)
+  └── cover.jpg
+```
+
+Hugo detects the translations automatically. A language toggle appears in the post header.
+
+### Site-wide assets
+
+Images shared across the entire site (logo, avatar) go in `static/assets/images/` and are served at `/assets/images/`. Post-specific images always go inside the post's own folder.
 
 ## Deploy
 

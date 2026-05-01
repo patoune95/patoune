@@ -9,7 +9,7 @@ tags:
   - jamstack
   - github-pages
 cover:
-  image: assets/images/jekyll-hugo/jekyll-hugo-title.jpeg
+  image: cover.jpeg
   alt: "Hugo vs Jekyll"
 ---
 

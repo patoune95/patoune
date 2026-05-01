@@ -9,7 +9,7 @@ tags:
   - iac
   - automation
 cover:
-  image: assets/images/azure-policy-terraform.jpeg
+  image: cover.jpeg
   alt: "Azure Policy Automation"
 ---
 
@@ -35,7 +35,7 @@ Il y a trois notions clés à distinguer.
 
 **L'Assignment** est ce qui lie une définition de policy ou une définition d'initiative à un **scope** : Management Group, Subscription ou Resource Group. Sans assignment, une policy n'a aucun effet.
 
-![Définitions, Initiative et Assignments Azure Policy](/assets/images/azure-policy-automation/azure-policy-definitions-initiative-assignment.svg)
+![Définitions, Initiative et Assignments Azure Policy](azure-policy-definitions-initiative-assignment.svg)
 
 Une policy peut être assignée directement ou via une initiative, mais en pratique, passer par des initiatives facilite grandement la gestion à l'échelle. Il faut voir les initiatives comme des sortes de `dossier` permettant de regrouper les policies.
 
@@ -108,7 +108,7 @@ Avant de rentrer dans l'automatisation, voici un exemple d'organisation typique 
 - Les **definitions et initiatives** sont portées au niveau des management groups d'environnement (DEV / HML / PRD), ce qui permet de définir des règles différentes par environnement tout en gardant une structure commune par BU.
 - Les **assignments** sont appliqués au niveau des souscriptions.
 
-![Organisation des scopes Azure Policy](/assets/images/azure-policy-automation/azure-policy-scope-organisation.svg)
+![Organisation des scopes Azure Policy](azure-policy-scope-organisation.svg)
 
 
 👉 **Bonne pratique** : le [Cloud Adoption Framework Microsoft](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups) recommande de ne jamais utiliser le Tenant Root Group comme point d'attache direct pour les BU ou les policies.

@@ -7,7 +7,7 @@ tags:
   - aks
   - monitoring
 cover:
-  image: assets/images/overview_retina_256_256.jpg
+  image: cover.jpg
   alt: "Retina"
 ---
 

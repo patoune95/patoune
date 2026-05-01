@@ -11,7 +11,7 @@ tags:
   - sécurité
   - réseau
 cover:
-  image: assets/images/bpf-kubernetes-2026.png
+  image: cover.png
   alt: "eBPF en Kubernetes"
 ---
 

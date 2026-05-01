@@ -1,13 +1,14 @@
 baseURL = "https://www.patoune-it.fr/"
-languageCode = "fr"
 title = "Patoune-IT"
 theme = "PaperMod"
+defaultContentLanguage = "fr"
+defaultContentLanguageInSubdir = false
+
 [pagination]
   pagerSize = 6
 
 [params]
   author = "Thomas L."
-  description = "Technical blog"
   ShowReadingTime = true
   ShowShareButtons = false
   ShowPostNavLinks = true
@@ -16,6 +17,7 @@ theme = "PaperMod"
   ShowToc = true
   defaultTheme = "auto"
   mainSections = ["posts"]
+  displayFullLangName = true
 
 [params.label]
   text = "Patoune-IT"
@@ -26,10 +28,6 @@ theme = "PaperMod"
   hiddenInList = false
   hiddenInSingle = false
 
-[params.homeInfoParams]
-  Title = "Patoune-IT"
-  Content = "Technical blog · Lead Tech · Paris, France"
-
 [[params.socialIcons]]
   name = "github"
   url = "https://github.com/patoune95"
@@ -38,16 +36,45 @@ theme = "PaperMod"
   name = "linkedin"
   url = "https://www.linkedin.com/in/thomas-l-a365153a/"
 
-[menu]
-  [[menu.main]]
-    name = "Posts"
-    url = "/posts/"
+[languages]
+  [languages.fr]
+    languageName = "🇫🇷 FR"
     weight = 1
-  [[menu.main]]
-    name = "Tags"
-    url = "/tags/"
+    [languages.fr.params]
+      description = "Blog technique"
+      [languages.fr.params.homeInfoParams]
+        Title = "Patoune-IT"
+        Content = "Blog technique · Lead Tech · Paris, France"
+    [[languages.fr.menus.main]]
+      name = "Posts"
+      url = "/posts/"
+      weight = 1
+    [[languages.fr.menus.main]]
+      name = "Tags"
+      url = "/tags/"
+      weight = 2
+    [[languages.fr.menus.main]]
+      name = "Archives"
+      url = "/archives/"
+      weight = 3
+
+  [languages.en]
+    languageName = "🇬🇧 EN"
     weight = 2
-  [[menu.main]]
-    name = "Archives"
-    url = "/archives/"
-    weight = 3
+    [languages.en.params]
+      description = "Technical blog"
+      [languages.en.params.homeInfoParams]
+        Title = "Patoune-IT"
+        Content = "Technical blog · Lead Tech · Paris, France"
+    [[languages.en.menus.main]]
+      name = "Posts"
+      url = "/en/posts/"
+      weight = 1
+    [[languages.en.menus.main]]
+      name = "Tags"
+      url = "/en/tags/"
+      weight = 2
+    [[languages.en.menus.main]]
+      name = "Archives"
+      url = "/en/archives/"
+      weight = 3

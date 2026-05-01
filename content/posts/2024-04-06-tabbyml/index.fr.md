@@ -7,7 +7,7 @@ tags:
   - assistant
   - test
 cover:
-  image: assets/images/TabbyML_256_256.jpg
+  image: cover.jpg
   alt: "TabbyML"
 ---
 
@@ -42,7 +42,7 @@ cargo build -r
 
 *La compilation a pris un certain temps...* ☕
 
-![tabby_compile_rust](/assets/images/tabby/tabby_compile_rust.png)
+![tabby_compile_rust](tabby_compile_rust.png)
 
 La compilation ayant fonctionné, j'étais très content de pouvoir le tester ! 👌😊
 
@@ -58,23 +58,23 @@ La liste des models est disponible depuis le site de Tabby [**ici**](https://tab
 
 Au premier lancement, il va télécharger automatiquement le modèle
 
-![tabby_download_model](/assets/images/tabby/tabby_download_model.png)
+![tabby_download_model](tabby_download_model.png)
 
 Puis lancer le serveur. On notera qu'il se lance par défaut sur le port _8080_ en _localhost_.
 
-![tabby_start_server](/assets/images/tabby/tabby_start_server.png)
+![tabby_start_server](tabby_start_server.png)
 
 ### 3. Préparation du client
 
 Tabby fonctionnant via Visual Studio Code, j'ai décidé de l'utiliser comme client pour tester Tabby. L'installation a été assez simple, un plugin Tabby étant disponible. La configuration a aussi été simple puisque dans les paramètres, j'ai simplement défini l'ip de mon Raspberry et le port.
 
-![tabby_vscode_install](/assets/images/tabby/tabby_vscode_install.png)
+![tabby_vscode_install](tabby_vscode_install.png)
 
-![tabby_vscode_configure](/assets/images/tabby/tabby_vscode_configure.png)
+![tabby_vscode_configure](tabby_vscode_configure.png)
 
 Une fois installé, on peut voir en bas de l'éditeur une petite zone pour Tabby apparaître
 
-![tabby_vscode_button](/assets/images/tabby/tabby_vscode_button.png)
+![tabby_vscode_button](tabby_vscode_button.png)
 
 ### 4. Test
 
@@ -100,7 +100,7 @@ Test d'une suggestion de création d'un test unitaire :
 
 Suggestion attendue (je n'ai pas eu toujours la même réponse, ce qui est normal via une IA génératrice)
 
-![tabby_suggest](/assets/images/tabby/tabby_suggest.png)
+![tabby_suggest](tabby_suggest.png)
 
 | _Configuration_ | _Temps moyen_ |
 |----------------|--------------|
@@ -112,7 +112,7 @@ Suggestion attendue (je n'ai pas eu toujours la même réponse, ce qui est norma
 
 Lors des essais avec le PI et en mode CPU, j'ai pu constater que l'icône `Tabby` en dans la barre d'état de Visual Studio code passait au jaune. En cliquant dessus, j'ai pu obtenir le message suivant :
 
-![tabby_timeout](/assets/images/tabby/tabby_timeout.png)
+![tabby_timeout](tabby_timeout.png)
 
 _Il est cependant possible de lui dire de ne plus afficher l'erreur pour résoudre le problème_
 
