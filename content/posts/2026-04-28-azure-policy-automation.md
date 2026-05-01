@@ -1,7 +1,7 @@
 ---
 title: "Gérer les Azure Policies à l'échelle : une approche via Terraform et azapi"
 date: 2026-04-28T10:00:00+02:00
-draft: true
+draft: false
 tags:
   - azure
   - policy
@@ -17,7 +17,7 @@ cover:
 
 ## Qu'est-ce qu'une Azure Policy ?
 
-Une Azure Policy est une règle de gouvernance appliquée sur des ressources Azure. Elle permet de s'assurer qu'un environnement reste conforme à des standards définis : sécurité, nommage, régions autorisées, chiffrement...
+Une Azure Policy est une règle de gouvernance appliquée sur des ressources Azure. Elle permet de s'assurer qu'un environnement reste conforme à des standards définis : sécurité, nommage, régions autorisées...
 
 Il y a trois notions clés à distinguer.
 
@@ -26,43 +26,49 @@ Il y a trois notions clés à distinguer.
 | Effet | Comportement |
 |---|---|
 | `Audit` | Log la non-conformité, ne bloque pas |
-| `AuditIfNotExists` | Audite une ressource *associée* absente ou non-conforme (ex : diagnostic settings, Defender for Cloud) |
 | `Deny` | Bloque la création ou modification de la ressource |
-| `DenyAction` | Bloque une action spécifique sur une ressource (actuellement uniquement `DELETE`) — protège les ressources critiques contre la suppression accidentelle |
 | `DeployIfNotExists` | Déploie automatiquement une ressource associée si absente |
 | `Modify` | Modifie une propriété lors de la création/mise à jour |
 | `Append` | Ajoute des champs à la ressource |
-| `Disabled` | Désactive complètement l'évaluation de la policy |
 
 **L'Initiative** (ou `PolicySetDefinition`) est un regroupement de plusieurs definitions. Plutôt que d'assigner chaque policy une par une, on les regroupe dans une initiative cohérente, par exemple une baseline sécurité ou conformité CIS.
 
-**L'Assignment** est ce qui lie une définition ou une initiative à un **scope** : Management Group, Subscription ou Resource Group. Sans assignment, une policy n'a aucun effet.
+**L'Assignment** est ce qui lie une définition de policy ou une définition d'initiative à un **scope** : Management Group, Subscription ou Resource Group. Sans assignment, une policy n'a aucun effet.
 
 ![Définitions, Initiative et Assignments Azure Policy](/assets/images/azure-policy-automation/azure-policy-definitions-initiative-assignment.svg)
 
-Une policy peut être assignée directement ou via une initiative, mais en pratique, passer par des initiatives facilite grandement la gestion à l'échelle.
+Une policy peut être assignée directement ou via une initiative, mais en pratique, passer par des initiatives facilite grandement la gestion à l'échelle. Il faut voir les initiatives comme des sortes de `dossier` permettant de regrouper les policies.
 
-## Les contraintes du terrain
+## Les contraintes du terrain et le besoin de couper certaines policies
 
-Sur le papier, une policy s'applique uniformément à tout son scope. En pratique, c'est rarement aussi simple : une équipe a besoin d'une exception temporaire, un environnement de dev ne doit pas être bloqué par une règle pensée pour la prod, une ressource legacy ne peut pas encore être mise en conformité.
+Sur le papier, une policy s'applique uniformément à tout son scope.
 
-La solution la plus directe est d'utiliser le mode `DoNotEnforce` sur l'assignment. Quand il est activé, la policy est toujours évaluée (elle remonte des résultats de conformité) mais elle ne produit aucun effet bloquant. Un `Deny` devient silencieux, un `DeployIfNotExists` ne se déclenche pas automatiquement lors de la création ou mise à jour d'une ressource. À noter : les tâches de remédiation *manuelles* peuvent toujours être déclenchées en `DoNotEnforce`, ce qui permet de tester le comportement d'un `DeployIfNotExists` pendant la phase de validation sans risquer de bloquer quoi que ce soit.
+En pratique, c'est rarement aussi simple. On peut rencontrer différents cas d'usages qui justifient qu'on ait besoin de *désactiver* certaines policies : 
 
-```json
-{
-  "enforcementMode": "DoNotEnforce"
-}
-```
+- Une équipe a besoin d'une exception temporaire
+- Un environnement de dev ne doit pas être bloqué par une règle pensée pour la prod
+- Une ressource legacy ne peut pas encore être mise en conformité.
 
-C'est souvent utilisé comme **filet de sécurité lors d'un déploiement** : on assigne l'initiative en mode `DoNotEnforce` pour observer les résultats de conformité sans risquer de casser quoi que ce soit, puis on bascule en `Default` une fois qu'on est confiant sur la couverture.
+### L'approche DoNotEnforce et ses limites
 
-Il y a un autre risque terrain moins évident : si on assigne une policy en mode `Default` et qu'on lance ensuite un script pour basculer en `DoNotEnforce`, il existe une fenêtre de quelques secondes à quelques minutes pendant laquelle la policy est active. Un `Deny` dans cette fenêtre peut bloquer la création d'une ressource en cours de déploiement et créer une interruption de service.
+La solution la plus directe est d'utiliser le mode `DoNotEnforce` sur l'assignment. Quand il est activé, la policy est toujours évaluée (elle remonte des résultats de conformité) mais elle ne produit aucun effet bloquant.
 
-La bonne nouvelle : **Azure permet de déployer un assignment directement en `DoNotEnforce` dès la création**, sans passer par une phase `Default`. Il n'y a donc aucune raison d'accepter ce risque. La [documentation Microsoft](https://learn.microsoft.com/en-us/azure/governance/policy/how-to/policy-safe-deployment-practices) recommande d'ailleurs explicitement cette approche dans ses *safe deployment practices* pour les policies avec effets `DeployIfNotExists` ou `Modify` : assigner en `DoNotEnforce`, valider la conformité, puis basculer en `Default`.
+Un `Deny` devient alors silencieux, un `DeployIfNotExists` ne se déclenche plus automatiquement lors de la création ou mise à jour d'une ressource.
 
 `DoNotEnforce` fonctionne aussi bien pour une policy seule que pour une initiative entière : c'est une propriété de l'assignment, pas de la définition.
 
-### Couper seulement certaines policies dans une initiative
+📝 À noter : les tâches de remédiation *manuelles* peuvent toujours être déclenchées en `DoNotEnforce`, ce qui permet de tester le comportement d'un `DeployIfNotExists` pendant la phase de validation sans risquer de bloquer quoi que ce soit.
+
+C'est souvent utilisé comme **filet de sécurité lors d'un déploiement** : on assigne l'initiative en mode `DoNotEnforce` pour observer les résultats de conformité sans risquer de casser quoi que ce soit, puis on bascule en `Default` une fois qu'on est confiant sur la couverture.
+
+⚠️ Il y a un autre risque terrain moins évident : si on assigne une policy en mode `Default` et qu'on lance ensuite un script pour basculer en `DoNotEnforce`, il existe une fenêtre de quelques secondes à quelques minutes pendant laquelle la policy est active. Un `Deny` dans cette fenêtre peut bloquer la création d'une ressource en cours de déploiement et créer une interruption de service.
+
+La bonne nouvelle : **Azure permet de déployer un assignment directement en `DoNotEnforce` dès la création**, sans passer par une phase `Default`. Il n'y a donc aucune raison d'accepter ce risque.
+
+La [documentation Microsoft](https://learn.microsoft.com/en-us/azure/governance/policy/how-to/policy-safe-deployment-practices) recommande d'ailleurs explicitement cette approche dans ses *safe deployment practices* pour les policies avec effets `DeployIfNotExists` ou `Modify` : assigner en `DoNotEnforce`, valider la conformité, puis basculer en `Default`.
+
+
+### L'utilisation des overrides comme solution élégante
 
 Le `DoNotEnforce` agit sur tout l'assignment. Quand on veut désactiver seulement une ou plusieurs policies au sein d'une initiative, sans toucher aux autres, il faut utiliser les **overrides**.
 
@@ -93,15 +99,21 @@ Les overrides permettent de surcharger l'effet d'une policy spécifique dans l'i
 
 Dans cet exemple, l'initiative `BaselineSecurite` reste assignée et active, mais les deux policies ciblées sont désactivées. Les autres policies de l'initiative continuent de s'appliquer normalement.
 
-> Un assignment peut contenir jusqu'à 10 overrides, chacun pouvant cibler jusqu'à 50 `policyDefinitionReferenceId`. C'est suffisant pour couvrir la grande majorité des cas terrain.
+> 💡 Un assignment peut contenir jusqu'à 10 overrides, chacun pouvant cibler jusqu'à 50 `policyDefinitionReferenceId`. C'est suffisant pour couvrir la grande majorité des cas terrain.
 
 ## Organisation des scopes : un exemple concret
 
-Avant de rentrer dans l'automatisation, voici un exemple d'organisation typique en entreprise. Les **definitions et initiatives** sont portées au niveau des management groups d'environnement (DEV / HML / PRD), ce qui permet de définir des règles différentes par environnement tout en gardant une structure commune par BU. Les **assignments** sont appliqués au niveau des souscriptions.
+Avant de rentrer dans l'automatisation, voici un exemple d'organisation typique en entreprise :
+
+- Les **definitions et initiatives** sont portées au niveau des management groups d'environnement (DEV / HML / PRD), ce qui permet de définir des règles différentes par environnement tout en gardant une structure commune par BU.
+- Les **assignments** sont appliqués au niveau des souscriptions.
 
 ![Organisation des scopes Azure Policy](/assets/images/azure-policy-automation/azure-policy-scope-organisation.svg)
 
-> **Bonne pratique** : le [Cloud Adoption Framework Microsoft](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups) recommande de ne jamais utiliser le Tenant Root Group comme point d'attache direct pour les BU ou les policies. Il faut intercaler un **Intermediate Root Management Group** (nommé d'après l'organisation, ex: `Contoso`) entre le Tenant Root et le reste de la hiérarchie. Cela permet d'appliquer des policies globales à ce niveau sans toucher au Root, et de garder le Root comme ancre neutre, ce qui facilite les évolutions futures et le debug des héritages de policies.
+
+👉 **Bonne pratique** : le [Cloud Adoption Framework Microsoft](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups) recommande de ne jamais utiliser le Tenant Root Group comme point d'attache direct pour les BU ou les policies.
+
+👉 Il faut donc intercaler un **Intermediate Root Management Group** (nommé d'après l'organisation, ex: `Contoso`) entre le Tenant Root et le reste de la hiérarchie. Cela permet d'appliquer des policies globales à ce niveau sans toucher au Root, et de garder le Root comme ancre neutre, ce qui facilite les évolutions futures et le debug des héritages de policies.
 
 Ce découpage offre une isolation claire : les règles DEV peuvent être plus souples (Audit) pendant que PRD applique des effets stricts (Deny). Chaque BU est autonome dans ses definitions tout en héritant des règles globales posées au niveau de l'Intermediate Root.
 
@@ -111,27 +123,37 @@ Ce découpage offre une isolation claire : les règles DEV peuvent être plus so
 
 Les problèmes concrets qu'on rencontre :
 
-**Traçabilité :** impossible de savoir facilement quelle version d'une policy est déployée sur quel scope, par qui, et depuis quand. Le portail ne remplace pas un historique git.
+- **Traçabilité :** impossible de savoir facilement quelle version d'une policy est déployée sur quel scope, par qui, et depuis quand. Le portail ne remplace pas un historique git.
 
-**Drift de configuration :** sans source de vérité commune, les environnements divergent. Une policy modifiée à la main en PRD ne sera pas répercutée en HML, et vice versa. On finit par ne plus savoir ce qui est vraiment en place.
+- **Drift de configuration :** sans source de vérité commune, les environnements divergent. Une policy modifiée à la main en PRD ne sera pas répercutée en HML, et vice versa. On finit par ne plus savoir ce qui est vraiment en place.
 
-**Gestion du cycle de vie des overrides :** comme on l'a vu, le `DoNotEnforce` et les overrides sont des états temporaires. Sans automatisation, on n'a aucune garantie qu'un override posé pour un déploiement d'urgence sera bien retiré ensuite. Il faut un outil qui puisse suivre ces états et piloter la transition vers `Default` de façon contrôlée.
+- **Gestion du cycle de vie des overrides :** comme on l'a vu, le `DoNotEnforce` et les overrides sont des états temporaires. Sans automatisation, on n'a aucune garantie qu'un override posé pour un déploiement d'urgence sera bien retiré ensuite. Il faut un outil qui puisse suivre ces états et piloter la transition vers `Default` de façon contrôlée.
 
-**Cohérence inter-BU :** quand plusieurs BUs partagent des policies communes (sécurité, nommage, régions autorisées), toute modification doit être propagée de façon consistante. À la main, c'est une source d'erreur permanente.
+- **Cohérence inter-BU :** quand plusieurs BUs partagent des policies communes (sécurité, nommage, régions autorisées), toute modification doit être propagée de façon consistante. À la main, c'est une source d'erreur permanente.
 
-**Audit et review :** les changements de policies ont un impact direct sur la sécurité et la conformité. Il faut pouvoir les soumettre à une revue (pull request), les tester avant déploiement, et avoir un historique clair de ce qui a changé et pourquoi.
+- **Audit et review :** les changements de policies ont un impact direct sur la sécurité et la conformité. Il faut pouvoir les soumettre à une revue (pull request), les tester avant déploiement, et avoir un historique clair de ce qui a changé et pourquoi.
 
-## Mon approche : un catalogue versionné
+## Structurer ses définitions : un catalogue versionné via un repository
 
-L'idée est de traiter les policies comme du code : un repository git comme source de vérité, une structure de catalogue claire, et un pipeline CI/CD qui gère le déploiement.
+Comme nous venons de le voir tout au long de cet article, chaque entreprise va générer ses propres politiques de sécurité. Ceci va se traduire par la réalisation d'un ensemble d'initiatives et de policies qu'il va falloir produire et surtout maintenir. Si on prend du recul, on se rend rapidement compte que tout ça va évoluer et changer dans le temps. Il est alors important d'avoir un suivi pour ne pas se perdre et d'avoir une vision claire de ses politiques de sécurité.
 
-### Structure du repository
+> 💡 L'approche proposée ici est de traiter les policies comme du code : un repository git comme source de vérité, une structure de catalogue claire, et un pipeline CI/CD qui gère le déploiement.
 
-On opte pour un **monorepo** avec deux couches distinctes.
+### Structure du repository avec Terraform
 
-La première couche est le **catalogue** : il contient les définitions de policies et d'initiatives, organisées par service Azure. Ce n'est pas ce qui est déployé directement, c'est une bibliothèque de modules Terraform.
+On opte pour un **monorepo** avec deux parties distinctes.
 
-Chaque service dispose de sa propre initiative qui regroupe toutes les policies le concernant. C'est le niveau de granularité le plus adapté : on assigne une initiative par service sur un scope, et on joue sur les overrides pour désactiver des policies précises selon le contexte. Pas besoin d'une initiative "fourre-tout". Chaque service est autonome et versionneable indépendamment.
+```
+policy-repo/
+├── catalog/               # bibliothèque de définitions (policies + initiatives)
+└── assignments/           # ce qui est réellement déployé (par BU et environnement)
+```
+
+La première partie est le **catalogue** : il contient les définitions de policies et d'initiatives, organisées par service Azure. Ce n'est pas ce qui est déployé directement, c'est une bibliothèque de modules Terraform.
+
+Chaque service dispose de sa propre initiative qui regroupe toutes les policies le concernant.
+
+> C'est le niveau de granularité le plus adapté : on assigne une initiative par service sur un scope, et on joue sur les overrides pour désactiver des policies précises selon le contexte. Pas besoin d'une initiative "fourre-tout". Chaque service est autonome et versionneable indépendamment.
 
 ```
 catalog/
@@ -156,7 +178,7 @@ catalog/
     └── initiative/
 ```
 
-La deuxième couche est la couche **assignments** : elle décrit ce qui est réellement déployé, pour quelle BU, sur quel environnement, et en référençant une version précise du catalogue.
+La deuxième partie est la partie **assignments** : elle décrit ce qui est réellement déployé, pour quelle BU, sur quel environnement, et en référençant une version précise du catalogue.
 
 ```
 assignments/
@@ -174,13 +196,17 @@ assignments/
 
 C'est le point le plus délicat de cette architecture. Si le catalogue est partagé, une modification d'une policy peut impacter toutes les BUs et tous les environnements en même temps, ce qui est exactement ce qu'on veut éviter.
 
+> 💡 Il est possible d'améliorer le système en exploitant un système de versionning basé sur un gestionnaire de packages comme *artifactory*. Le principal avantage d'une telle solution est qu'il sera plus aisé de pouvoir mettre à disposition des packages de services par version puis de les exploiter via un outil pour pouvoir les déployer. Ceci demande une architecture technique plus complexe à mettre en oeuvre mais est une solution plus souple à terme que l'usage présenté ici.
+
 ## Mise en pratique
 
 ### Pourquoi le provider azapi ?
 
-Le provider `azurerm` expose des ressources Terraform dédiées pour les policies (`azurerm_policy_definition`, `azurerm_management_group_policy_assignment`...), mais il a un défaut : il rattrape toujours l'API ARM avec du retard. Les `overrides`, les `resourceSelectors`, ou certains champs d'`enforcementMode` n'y sont pas toujours disponibles au moment où on en a besoin.
+Le provider `azurerm` expose des ressources Terraform dédiées pour les policies (`azurerm_policy_definition`, `azurerm_management_group_policy_assignment`...), mais il a un défaut : il rattrape toujours l'API ARM avec du retard, ce qui peut être un réel frein lorsqu'on souhaite mettre à disposition des features Azure qui ne sont pas encore en *GA*. De plus, les `overrides`, les `resourceSelectors`, ou certains champs d'`enforcementMode` n'y sont pas toujours disponibles au moment où on en a besoin.
 
 Le provider **`azapi`** résout ça proprement. Il prend le body ARM directement en HCL et Terraform gère le cycle de vie de la ressource (création, update, suppression, state), sans passer par un `azurerm_resource_group_template_deployment` qui déploierait un template ARM entier comme une boîte noire.
+
+Pour cela, il suffit de déclarer le provider correspondant:
 
 ```hcl
 terraform {
@@ -195,7 +221,9 @@ terraform {
 
 ### azapi & le versionning
 
-Puisqu'on part sur Terraform + `azapi`, la réponse naturelle est de traiter chaque service du catalogue comme un **module Terraform versionné**. Chaque assignment dans la couche `assignments/` déclare une source de module avec un ref git précis :
+Puisqu'on part sur Terraform + `azapi`, la réponse naturelle est de traiter chaque service du catalogue comme un **module Terraform versionné**.
+
+Chaque assignment dans la couche `assignments/` déclare une source de module avec un ref git précis :
 
 ```hcl
 module "initiative_storage" {
@@ -237,11 +265,15 @@ resource "azapi_resource" "policy_no_public_ip" {
 
 ### Gérer les overrides
 
-C'est là que la granularité devient importante. Les deux scénarios décrits n'ont pas la même solution.
+C'est là que la granularité devient importante.
+
+Les deux scénarios décrits n'ont pas la même solution, cependant, cela vaut le coup de les étudier pour voir comment adapter notre solution vis-à-vis de problématiques que l'on rencontrerait sur le terrain.
 
 #### Scénario 1 : Override au niveau du management group (BU1-DEV, `deny-storage-public-access` désactivée)
 
-L'initiative `storage` est assignée au MG `bu1-dev`. En DEV, on ne veut pas bloquer l'accès public aux Storage Accounts, trop contraignant pour les développeurs. On désactive la policy `deny-storage-public-access` via un override sur l'assignment du MG, sans toucher à la définition de l'initiative.
+L'initiative `storage` est assignée au MG `bu1-dev`. En DEV, on ne veut pas bloquer l'accès public aux Storage Accounts, trop contraignant pour les développeurs.
+
+> On désactive la policy `deny-storage-public-access` via un override sur l'assignment du MG, sans toucher à la définition de l'initiative.
 
 ```hcl
 resource "azapi_resource" "assignment_bu1_dev_storage" {
@@ -349,7 +381,9 @@ La règle est simple : le premier niveau d'assignment opérationnel commence à 
 
 ### Conventions de nommage
 
-Un nommage cohérent est indispensable pour naviguer dans un catalogue qui grossit. Voici une convention qui fonctionne bien en pratique :
+Un nommage cohérent est indispensable pour naviguer dans un catalogue qui grossit.
+
+Voici une convention qui pourrait bien fonctionner en pratique :
 
 | Élément | Format | Exemple |
 |---|---|---|
@@ -359,7 +393,9 @@ Un nommage cohérent est indispensable pour naviguer dans un catalogue qui gross
 | Assignment (subscription) | `[initiative]-[subscription]` | `initiative-keyvault-sampleSubscription` |
 | Tag de version | `[service]-v[major].[minor].[patch]` | `storage-v1.2.0` |
 
-Le `policyDefinitionReferenceId` utilisé dans les overrides doit correspondre exactement à la valeur définie dans l'initiative (`policySetDefinition`) pour ce champ — ce n'est pas nécessairement le nom ARM de la policy definition. Si ce champ n'est pas renseigné explicitement dans l'initiative, il prend par défaut le dernier segment de l'ID ARM de la définition. C'est ce référenceId qui fait le lien entre l'initiative et les overrides dans les assignments.
+Le `policyDefinitionReferenceId` utilisé dans les overrides doit correspondre exactement à la valeur définie dans l'initiative (`policySetDefinition`) pour ce champ. Ce n'est pas nécessairement le nom ARM de la policy definition. Si ce champ n'est pas renseigné explicitement dans l'initiative, il prend par défaut le dernier segment de l'ID ARM de la définition. C'est ce référenceId qui fait le lien entre l'initiative et les overrides dans les assignments.
+
+> 💡 Par convention, une bonne règle de nommage et une gouvernance bien définie autour de ces règles est un point essentiel pour l'ensemble du projet. Ceci permet par la suite d'améliorer la visibilité et de rendre plus aisée la mise en place d'outillages qui seront nécessaires assez rapidement lors de l'industrialisation.
 
 ### Gestion des versions
 
@@ -371,11 +407,11 @@ Le versioning des modules du catalogue suit un semver strict avec une significat
 
 Chaque BU met à jour sa `ref` de module indépendamment, via une PR dédiée. On évite ainsi les mises à jour en masse non contrôlées.
 
-### Toujours déployer en `DoNotEnforce` d'abord
+### Toujours déployer en `DoNotEnforce` d'abord !
 
 Toute nouvelle initiative ou toute montée de version majeure doit être déployée en `enforcementMode: "DoNotEnforce"` dans un premier temps, y compris en PRD. On laisse tourner quelques jours, on observe les résultats de conformité dans le portail Azure, et on bascule en `Default` uniquement une fois que le niveau de non-conformité est compris et maîtrisé.
 
-Ne jamais déployer directement en `Default` sur un scope de production sans avoir validé l'impact au préalable.
+> 💡 Ne jamais déployer directement en `Default` sur un scope de production sans avoir validé l'impact au préalable.
 
 ### Managed Identity pour les effets actifs
 
@@ -415,6 +451,8 @@ resource "azapi_resource" "assignment_bu2_prd_keyvault_sample" {
   ...
 }
 ```
+
+> 💡 Une autre approche qui serait à mon sens plus efficace, serait la mise en application d'un processus de suivi des exemptions qui serait bien plus efficace qu'un simple commentaire.
 
 ## Conclusion
 
