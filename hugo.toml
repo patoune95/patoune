@@ -1,7 +1,7 @@
 baseURL = "https://www.patoune-it.fr/"
 title = "Patoune-IT"
 theme = "PaperMod"
-defaultContentLanguage = "fr"
+defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 
 [pagination]
@@ -37,30 +37,9 @@ defaultContentLanguageInSubdir = false
   url = "https://www.linkedin.com/in/thomas-l-a365153a/"
 
 [languages]
-  [languages.fr]
-    languageName = "🇫🇷 FR"
-    weight = 1
-    [languages.fr.params]
-      description = "Blog technique"
-      [languages.fr.params.homeInfoParams]
-        Title = "Patoune-IT"
-        Content = "Blog technique · Lead Tech · Paris, France"
-    [[languages.fr.menus.main]]
-      name = "Posts"
-      url = "/posts/"
-      weight = 1
-    [[languages.fr.menus.main]]
-      name = "Tags"
-      url = "/tags/"
-      weight = 2
-    [[languages.fr.menus.main]]
-      name = "Archives"
-      url = "/archives/"
-      weight = 3
-
   [languages.en]
     languageName = "🇬🇧 EN"
-    weight = 2
+    weight = 1
     [languages.en.params]
       description = "Technical blog"
       [languages.en.params.homeInfoParams]
@@ -68,13 +47,34 @@ defaultContentLanguageInSubdir = false
         Content = "Technical blog · Lead Tech · Paris, France"
     [[languages.en.menus.main]]
       name = "Posts"
-      url = "/en/posts/"
+      url = "/posts/"
       weight = 1
     [[languages.en.menus.main]]
       name = "Tags"
-      url = "/en/tags/"
+      url = "/tags/"
       weight = 2
     [[languages.en.menus.main]]
       name = "Archives"
-      url = "/en/archives/"
+      url = "/archives/"
+      weight = 3
+
+  [languages.fr]
+    languageName = "🇫🇷 FR"
+    weight = 2
+    [languages.fr.params]
+      description = "Blog technique"
+      [languages.fr.params.homeInfoParams]
+        Title = "Patoune-IT"
+        Content = "Blog technique · Lead Tech · Paris, France"
+    [[languages.fr.menus.main]]
+      name = "Posts"
+      url = "/fr/posts/"
+      weight = 1
+    [[languages.fr.menus.main]]
+      name = "Tags"
+      url = "/fr/tags/"
+      weight = 2
+    [[languages.fr.menus.main]]
+      name = "Archives"
+      url = "/fr/archives/"
       weight = 3
