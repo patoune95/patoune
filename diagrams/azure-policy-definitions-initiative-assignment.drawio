@@ -1,0 +1,64 @@
+<mxfile host="65bd71144e">
+    <diagram id="az-policy-concepts" name="Definitions, Initiative et Assignments">
+        <mxGraphModel dx="1108" dy="768" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+
+                <!-- Swimlane: Définitions -->
+                <mxCell id="s1" value="Définitions" style="swimlane;startSize=40;fillColor=#107C10;strokeColor=#0A5C0A;fontColor=#ffffff;fontStyle=1;fontSize=13;rounded=1;arcSize=4;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="160" width="320" height="420" as="geometry"/>
+                </mxCell>
+                <mxCell id="n1" value="Policy Definition&lt;br&gt;Audit: pas d'IP publique" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=11;fontColor=#107C10;verticalLabelPosition=bottom;verticalAlign=top;image=img/lib/mscae/Policy.svg;" parent="s1" vertex="1">
+                    <mxGeometry x="130" y="55" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="n2" value="Policy Definition&lt;br&gt;Deny: régions interdites" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=11;fontColor=#107C10;verticalLabelPosition=bottom;verticalAlign=top;image=img/lib/mscae/Policy.svg;" parent="s1" vertex="1">
+                    <mxGeometry x="130" y="185" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="n3" value="Policy Definition&lt;br&gt;DINE: diagnostic settings" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=11;fontColor=#107C10;verticalLabelPosition=bottom;verticalAlign=top;image=img/lib/mscae/Policy.svg;" parent="s1" vertex="1">
+                    <mxGeometry x="130" y="315" width="60" height="60" as="geometry"/>
+                </mxCell>
+
+                <!-- Swimlane: Initiative -->
+                <mxCell id="s2" value="Initiative" style="swimlane;startSize=40;fillColor=#4B1C82;strokeColor=#32136B;fontColor=#ffffff;fontStyle=1;fontSize=13;rounded=1;arcSize=4;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="250" width="240" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="n4" value="PolicySetDefinition&lt;br&gt;ex: Baseline Sécurité" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=11;fontColor=#ffffff;verticalLabelPosition=bottom;verticalAlign=top;image=img/lib/mscae/Policy.svg;" parent="s2" vertex="1">
+                    <mxGeometry x="90" y="65" width="60" height="60" as="geometry"/>
+                </mxCell>
+
+                <!-- Swimlane: Assignments -->
+                <mxCell id="s3" value="Assignments" style="swimlane;startSize=40;fillColor=#0078D4;strokeColor=#005A9E;fontColor=#ffffff;fontStyle=1;fontSize=13;rounded=1;arcSize=4;" parent="1" vertex="1">
+                    <mxGeometry x="900" y="160" width="300" height="420" as="geometry"/>
+                </mxCell>
+                <mxCell id="n5" value="Assignment&lt;br&gt;→ Management Group" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=11;fontColor=#4B1C82;verticalLabelPosition=bottom;verticalAlign=top;image=img/lib/azure2/general/Management_Groups.svg;" parent="s3" vertex="1">
+                    <mxGeometry x="120" y="55" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="n6" value="Assignment&lt;br&gt;→ Subscription" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=11;fontColor=#0078D4;verticalLabelPosition=bottom;verticalAlign=top;image=img/lib/azure2/general/Subscriptions.svg;" parent="s3" vertex="1">
+                    <mxGeometry x="120" y="285" width="60" height="60" as="geometry"/>
+                </mxCell>
+
+                <!-- Edges: Definitions → Initiative -->
+                <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#107C10;strokeWidth=1.5;" parent="1" source="n1" target="n4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#107C10;strokeWidth=1.5;" parent="1" source="n2" target="n4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#107C10;strokeWidth=1.5;" parent="1" source="n3" target="n4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+
+                <!-- Edge: Initiative → Assignment MG -->
+                <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#555555;strokeWidth=1.5;" parent="1" source="n4" target="n5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+
+                <!-- Edge: D1 → Assignment Sub (assignement direct) -->
+                <mxCell id="e5" value="assignement direct" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#0078D4;strokeWidth=1.5;dashed=1;fontSize=10;fontColor=#0078D4;" parent="1" source="n1" target="n6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

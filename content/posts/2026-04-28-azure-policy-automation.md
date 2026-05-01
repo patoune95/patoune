@@ -38,30 +38,7 @@ Il y a trois notions clés à distinguer.
 
 **L'Assignment** est ce qui lie une définition ou une initiative à un **scope** : Management Group, Subscription ou Resource Group. Sans assignment, une policy n'a aucun effet.
 
-```mermaid
-flowchart LR
-    subgraph defs["Définitions"]
-        D1["Policy Definition\nAudit: pas d'IP publique"]
-        D2["Policy Definition\nDeny: régions interdites"]
-        D3["Policy Definition\nDINE: diagnostic settings"]
-    end
-
-    subgraph init["Initiative"]
-        I["PolicySetDefinition\nex: Baseline Sécurité"]
-    end
-
-    D1 --> I
-    D2 --> I
-    D3 --> I
-
-    subgraph assign["Assignments"]
-        A1["Assignment\n→ Management Group"]
-        A2["Assignment\n→ Subscription"]
-    end
-
-    I --> A1
-    D1 -->|"assignement direct"| A2
-```
+![Définitions, Initiative et Assignments Azure Policy](/assets/images/azure-policy-automation/azure-policy-definitions-initiative-assignment.svg)
 
 Une policy peut être assignée directement ou via une initiative, mais en pratique, passer par des initiatives facilite grandement la gestion à l'échelle.
 
@@ -122,54 +99,7 @@ Dans cet exemple, l'initiative `BaselineSecurite` reste assignée et active, mai
 
 Avant de rentrer dans l'automatisation, voici un exemple d'organisation typique en entreprise. Les **definitions et initiatives** sont portées au niveau des management groups d'environnement (DEV / HML / PRD), ce qui permet de définir des règles différentes par environnement tout en gardant une structure commune par BU. Les **assignments** sont appliqués au niveau des souscriptions.
 
-```mermaid
-flowchart TD
-    classDef tenant fill:#243A5E,color:#fff,stroke:#1B2A45,font-weight:bold
-    classDef intermediate fill:#4B1C82,color:#fff,stroke:#32136B,font-weight:bold
-    classDef mg fill:#7B2FBE,color:#fff,stroke:#5A1F9C
-    classDef sub fill:#0078D4,color:#fff,stroke:#005A9E
-    classDef def fill:#107C10,color:#fff,stroke:#0A5C0A
-
-    TRG(["Tenant Root Group"]):::tenant
-    INT(["Intermediate Root MG\nex: Contoso"]):::intermediate
-
-    TRG --> INT
-
-    subgraph sg_bu1["Business Unit 1"]
-        B1(["BU1"]):::mg
-        B1 --> D1(["DEV"]):::mg
-        B1 --> H1(["HML"]):::mg
-        B1 --> P1(["PRD"]):::mg
-
-        D1 --> DD1["Definitions & Initiatives"]:::def
-        D1 --> DS1(["Sub-BU1-DEV · Assignments"]):::sub
-
-        H1 --> DH1["Definitions & Initiatives"]:::def
-        H1 --> HS1(["Sub-BU1-HML · Assignments"]):::sub
-
-        P1 --> DP1["Definitions & Initiatives"]:::def
-        P1 --> PS1(["Sub-BU1-PRD · Assignments"]):::sub
-    end
-
-    subgraph sg_bu2["Business Unit 2"]
-        B2(["BU2"]):::mg
-        B2 --> D2(["DEV"]):::mg
-        B2 --> H2(["HML"]):::mg
-        B2 --> P2(["PRD"]):::mg
-
-        D2 --> DD2["Definitions & Initiatives"]:::def
-        D2 --> DS2(["Sub-BU2-DEV · Assignments"]):::sub
-
-        H2 --> DH2["Definitions & Initiatives"]:::def
-        H2 --> HS2(["Sub-BU2-HML · Assignments"]):::sub
-
-        P2 --> DP2["Definitions & Initiatives"]:::def
-        P2 --> PS2(["Sub-BU2-PRD · Assignments"]):::sub
-    end
-
-    INT --> B1
-    INT --> B2
-```
+![Organisation des scopes Azure Policy](/assets/images/azure-policy-automation/azure-policy-scope-organisation.svg)
 
 > **Bonne pratique** : le [Cloud Adoption Framework Microsoft](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups) recommande de ne jamais utiliser le Tenant Root Group comme point d'attache direct pour les BU ou les policies. Il faut intercaler un **Intermediate Root Management Group** (nommé d'après l'organisation, ex: `Contoso`) entre le Tenant Root et le reste de la hiérarchie. Cela permet d'appliquer des policies globales à ce niveau sans toucher au Root, et de garder le Root comme ancre neutre, ce qui facilite les évolutions futures et le debug des héritages de policies.
 
