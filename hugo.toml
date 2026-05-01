@@ -38,9 +38,10 @@ defaultContentLanguageInSubdir = false
 
 [languages]
   [languages.en]
-    languageName = "🇬🇧 EN"
+    languageName = "English"
     weight = 1
     [languages.en.params]
+      languageFlag = "🇬🇧"
       description = "Technical blog"
       [languages.en.params.homeInfoParams]
         Title = "Patoune-IT"
@@ -59,9 +60,10 @@ defaultContentLanguageInSubdir = false
       weight = 3
 
   [languages.fr]
-    languageName = "🇫🇷 FR"
+    languageName = "Français"
     weight = 2
     [languages.fr.params]
+      languageFlag = "🇫🇷"
       description = "Blog technique"
       [languages.fr.params.homeInfoParams]
         Title = "Patoune-IT"

@@ -1,0 +1,10 @@
+<script>
+document.addEventListener('click', function(e) {
+    document.querySelectorAll('.lang-dropdown.open').forEach(function(d) {
+        if (!d.contains(e.target)) {
+            d.classList.remove('open');
+            d.querySelector('.lang-dropdown-btn').setAttribute('aria-expanded', 'false');
+        }
+    });
+});
+</script>
