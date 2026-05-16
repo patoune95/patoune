@@ -1,6 +1,7 @@
 ---
 title: "Why I Migrated from Jekyll to Hugo"
 date: 2026-04-28T12:00:00+02:00
+description: "Why I migrated my blog from Jekyll to Hugo: a comparison of both tools, the benefit of the dependency-free Go binary, and deployment on GitHub Pages."
 draft: false
 tags:
   - hugo
@@ -11,6 +12,7 @@ tags:
 cover:
   image: cover.jpeg
   alt: "Hugo vs Jekyll"
+  relative: true
 ---
 
 This blog started with Jekyll, the static site generator historically associated with GitHub Pages. After a few months of use, I decided to migrate to Hugo. Here's why, and how it works.

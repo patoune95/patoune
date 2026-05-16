@@ -1,8 +1,13 @@
 baseURL = "https://www.patoune-it.fr/"
 title = "Patoune-IT"
 theme = "PaperMod"
-defaultContentLanguage = "en"
+defaultContentLanguage = "fr"
 defaultContentLanguageInSubdir = false
+enableRobotsTXT = true
+
+[services]
+  [services.googleAnalytics]
+    id = "G-K75YTJ0NQR"
 
 [pagination]
   pagerSize = 6
@@ -18,6 +23,10 @@ defaultContentLanguageInSubdir = false
   defaultTheme = "auto"
   mainSections = ["posts"]
   displayFullLangName = true
+  keywords = ["azure", "cloud", "devops", "kubernetes", "terraform", "architecture", "lead tech", "paris"]
+
+[params.schema]
+  publisherType = "Person"
 
 [params.label]
   text = "Patoune-IT"
@@ -39,10 +48,10 @@ defaultContentLanguageInSubdir = false
 [languages]
   [languages.en]
     languageName = "English"
-    weight = 1
+    weight = 2
     [languages.en.params]
       languageFlag = "🇬🇧"
-      description = "Technical blog"
+      description = "Technical blog about cloud, DevOps, Azure and Kubernetes — by Thomas L., Lead Tech engineer based in Paris."
       [languages.en.params.homeInfoParams]
         Title = "Patoune-IT"
         Content = "Technical blog · Lead Tech · Paris, France"
@@ -61,10 +70,10 @@ defaultContentLanguageInSubdir = false
 
   [languages.fr]
     languageName = "Français"
-    weight = 2
+    weight = 1
     [languages.fr.params]
       languageFlag = "🇫🇷"
-      description = "Blog technique"
+      description = "Blog technique sur le cloud, DevOps, Azure et Kubernetes — par Thomas L., Lead Tech basé à Paris."
       [languages.fr.params.homeInfoParams]
         Title = "Patoune-IT"
         Content = "Blog technique · Lead Tech · Paris, France"

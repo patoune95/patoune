@@ -1,6 +1,7 @@
 ---
 title: "Introducing Microsoft Retina"
 date: 2024-03-25T23:03:19+01:00
+description: "Discovering Microsoft Retina, an open-source network monitoring tool for AKS: CLI and CRD capture modes, Basic and Advanced metrics pushed to Prometheus."
 tags:
   - azure
   - retina
@@ -9,6 +10,7 @@ tags:
 cover:
   image: cover.jpg
   alt: "Retina"
+  relative: true
 ---
 
 During my attendance at KubeCon, I had the opportunity to participate in the *Azure day with Kubernetes*.

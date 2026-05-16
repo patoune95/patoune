@@ -1,6 +1,7 @@
 ---
 title: "Gérer les Azure Policies à l'échelle : une approche via Terraform et azapi"
 date: 2026-04-28T10:00:00+02:00
+description: "Comment gérer les Azure Policies à l'échelle avec Terraform et azapi : catalogue versionné par service, gestion des overrides et déploiement CI/CD."
 draft: false
 tags:
   - azure
@@ -11,6 +12,7 @@ tags:
 cover:
   image: cover.jpeg
   alt: "Azure Policy Automation"
+  relative: true
 ---
 
 <!-- Introduction -->

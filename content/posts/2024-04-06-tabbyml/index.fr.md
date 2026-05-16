@@ -1,6 +1,7 @@
 ---
 title: "Test de TabbyML - Un assistant de codage autonome"
 date: 2024-04-06T23:03:19+01:00
+description: "Test de TabbyML, l'assistant de code IA open-source auto-hébergé : installation sur Raspberry Pi 5 et PC, benchmarks CPU vs GPU et intégration VS Code."
 tags:
   - ia
   - code
@@ -9,6 +10,7 @@ tags:
 cover:
   image: cover.jpg
   alt: "TabbyML"
+  relative: true
 ---
 
 J'ai découvert dernièrement un assistant de codage basé sur une IA, qu'on peut auto-héberger chez soi, qui n'envoie aucune requête sur internet ou besoin de service cloud, gratuit et open-source. Cet assistant s'appelle `TabbyML`.

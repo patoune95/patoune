@@ -1,6 +1,7 @@
 ---
 title: "Testing TabbyML - A Self-Hosted Coding Assistant"
 date: 2024-04-06T23:03:19+01:00
+description: "Testing TabbyML, the open-source self-hosted AI coding assistant: installation on Raspberry Pi 5 and PC, CPU vs GPU benchmarks and VS Code integration."
 tags:
   - ia
   - code
@@ -9,6 +10,7 @@ tags:
 cover:
   image: cover.jpg
   alt: "TabbyML"
+  relative: true
 ---
 
 I recently discovered an AI-powered coding assistant that you can self-host at home, sends no requests to the internet, requires no cloud service, and is free and open-source. That assistant is called `TabbyML`.

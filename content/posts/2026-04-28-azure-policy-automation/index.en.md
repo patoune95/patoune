@@ -1,6 +1,7 @@
 ---
 title: "Managing Azure Policies at Scale: A Terraform and azapi Approach"
 date: 2026-04-28T10:00:00+02:00
+description: "How to manage Azure Policies at scale with Terraform and azapi: versioned catalog per service, override management, DoNotEnforce strategy and CI/CD pipeline."
 draft: false
 tags:
   - azure
@@ -11,6 +12,7 @@ tags:
 cover:
   image: cover.jpeg
   alt: "Azure Policy Automation"
+  relative: true
 ---
 
 ## What is an Azure Policy?
