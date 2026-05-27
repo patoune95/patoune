@@ -1,0 +1,52 @@
+<mxfile host="65bd71144e">
+    <diagram id="aks-postgres-tunnel" name="AKS PostgreSQL Tunnel">
+        <mxGraphModel dx="883" dy="1244" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="local_container" value="Poste local" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;fillColor=#E6F1FB;strokeColor=#185FA5;strokeWidth=2;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="58" width="220" height="252" as="geometry"/>
+                </mxCell>
+                <mxCell id="client_sql" value="Client SQL&lt;br&gt;psql / DBeaver" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;fillColor=#B5D4F4;strokeColor=#0C447C;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="70" y="100" width="160" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="kubectl" value="kubectl port-forward" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;fillColor=#9FE1CB;strokeColor=#085041;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="70" y="230" width="160" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow1" value="localhost:5432" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;dashed=0;dashPattern=1 0;strokeWidth=2;strokeColor=#185FA5;endArrow=classic;labelBackgroundColor=none;" parent="1" source="client_sql" target="kubectl" edge="1">
+                    <mxGeometry x="-0.0811" y="40" relative="1" as="geometry">
+                        <mxPoint as="sourcePoint"/>
+                        <mxPoint as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="296" y="40" width="390" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="aks_container" value="AKS Cluster&#xa;VNet Azure" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;fillColor=#F5C4B3;strokeColor=#993C1D;strokeWidth=2;verticalAlign=top;" parent="2" vertex="1">
+                    <mxGeometry width="390" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="pod_socat" value="Pod socat&#xa;alpine/socat" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;fillColor=#EF9F27;strokeColor=#854F0B;strokeWidth=2;" parent="2" vertex="1">
+                    <mxGeometry x="30" y="80" width="160" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="postgresql" value="Azure PostgreSQL&#xa;Private Endpoint" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;fillColor=#F4C0D1;strokeColor=#72243E;strokeWidth=2;" parent="2" vertex="1">
+                    <mxGeometry x="200" y="170" width="160" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow3" value="TCP forward" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;dashed=0;dashPattern=1 0;strokeWidth=2;strokeColor=#854F0B;endArrow=classic;labelBackgroundColor=none;" parent="2" source="pod_socat" target="postgresql" edge="1">
+                    <mxGeometry x="0.0526" y="18" relative="1" as="geometry">
+                        <mxPoint x="-340" y="-40" as="sourcePoint"/>
+                        <mxPoint x="-340" y="-40" as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arrow2" value="tunnel kubectl" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;dashed=0;dashPattern=1 0;strokeWidth=2;strokeColor=#085041;endArrow=classic;labelBackgroundColor=none;fontStyle=2;fontColor=#0000FF;" parent="1" source="kubectl" target="pod_socat" edge="1">
+                    <mxGeometry y="16" relative="1" as="geometry">
+                        <mxPoint as="sourcePoint"/>
+                        <mxPoint as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
