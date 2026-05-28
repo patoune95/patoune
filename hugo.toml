@@ -67,6 +67,10 @@ enableRobotsTXT = true
       name = "Archives"
       url = "/archives/"
       weight = 3
+    [[languages.en.menus.main]]
+      name = "Mythos"
+      url = "/mythos/"
+      weight = 4
 
   [languages.fr]
     languageName = "Français"
@@ -79,13 +83,17 @@ enableRobotsTXT = true
         Content = "Blog technique · Lead Tech · Paris, France"
     [[languages.fr.menus.main]]
       name = "Posts"
-      url = "/fr/posts/"
+      url = "/posts/"
       weight = 1
     [[languages.fr.menus.main]]
       name = "Tags"
-      url = "/fr/tags/"
+      url = "/tags/"
       weight = 2
     [[languages.fr.menus.main]]
       name = "Archives"
-      url = "/fr/archives/"
+      url = "/archives/"
       weight = 3
+    [[languages.fr.menus.main]]
+      name = "Mythos"
+      url = "/mythos/"
+      weight = 4

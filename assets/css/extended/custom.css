@@ -213,6 +213,45 @@ h1, h2, h3 {
     }
 }
 
+/* ── Pullquote ── */
+.pullquote {
+    margin: 2rem 0;
+    padding: 1.25rem 1.75rem 1.25rem 2rem;
+    border-left: 4px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 6%, transparent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    position: relative;
+}
+
+.pullquote::before {
+    content: '\201C';
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.25;
+    position: absolute;
+    top: -0.25rem;
+    left: 0.75rem;
+    font-family: Georgia, serif;
+}
+
+.pullquote p {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--primary);
+    margin: 0 0 0.6rem;
+    line-height: 1.65;
+    padding-left: 1.5rem;
+}
+
+.pullquote cite {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--secondary);
+    font-style: normal;
+    padding-left: 1.5rem;
+}
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
     .post-grid {

@@ -1,0 +1,73 @@
+<mxfile host="65bd71144e">
+    <diagram id="cve-response-workflow" name="CVE Response Workflow">
+        <mxGraphModel dx="1128" dy="960" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1190" pageHeight="1680" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="CVE Critical Response Workflow" style="text;html=1;fontSize=24;fontStyle=1;align=center;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="20" width="600" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="cve-published" value="CVE Published&#xa;(CVSS &gt;= 9.0)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB3B3;fontColor=#5D3D3D;fontSize=14;fontStyle=1;strokeColor=#E89090;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="100" width="250" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E89090;strokeWidth=2.5;endArrow=triangle;" parent="1" source="cve-published" target="auto-alert" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="auto-alert" value="Automatic Alert&#xa;Slack / PagerDuty / Email notification" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB3B3;fontColor=#5D3D3D;fontSize=14;fontStyle=1;strokeColor=#E89090;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="375" y="220" width="350" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E89090;strokeWidth=2.5;endArrow=triangle;" parent="1" source="auto-alert" target="rapid-qual" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rapid-qual" value="Rapid Qualification (&lt; 2 hours)&#xa;• Do we use the component?&#xa;• Are we exposed?&#xa;• Is a patch available?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFD9B3;fontColor=#664D2D;fontSize=13;fontStyle=0;strokeColor=#F0C08A;strokeWidth=2;align=left;spacingLeft=20;spacingTop=15;spacingBottom=10;" parent="1" vertex="1">
+                    <mxGeometry x="325" y="340" width="450" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#F0C08A;strokeWidth=2.5;endArrow=triangle;" parent="1" source="rapid-qual" target="decision" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="decision" value="Exposure Status?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9C9E8;fontColor=#4A3A5D;fontSize=14;fontStyle=1;strokeColor=#C4B0D9;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="450" y="510" width="200" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow-left" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B3E0D1;strokeWidth=2.5;endArrow=triangle;" parent="1" source="decision" target="not-exposed" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="not-exposed" value="Not Exposed&#xa;Document &amp; Monitor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3E0D1;fontColor=#2D5D47;fontSize=13;fontStyle=1;strokeColor=#8FCCC8;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="640" width="200" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow-right" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FCC5A8;strokeWidth=2.5;endArrow=triangle;" parent="1" source="decision" target="exposed-patch" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="exposed-patch" value="Exposed +&#xa;Patch Available" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCC5A8;fontColor=#664D33;fontSize=13;fontStyle=1;strokeColor=#F5B395;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="780" y="640" width="200" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E89090;strokeWidth=2.5;endArrow=triangle;" parent="1" source="exposed-patch" target="emergency" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="emergency" value="EMERGENCY DEPLOYMENT&#xa;• Create hotfix branch&#xa;• Run smoke tests (minimum)&#xa;• Canary deployment (if possible)&#xa;• Full rollout &lt; 48 hours" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB3B3;fontColor=#5D3D3D;fontSize=12;fontStyle=1;strokeColor=#E89090;strokeWidth=2;align=left;spacingLeft=20;spacingTop=15;spacingBottom=10;" parent="1" vertex="1">
+                    <mxGeometry x="625" y="790" width="350" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#8FCCC8;strokeWidth=2.5;endArrow=triangle;" parent="1" source="emergency" target="verification" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="verification" value="Verification &amp; Monitoring&#xa;• Confirm patch applied to all systems&#xa;• Monitor for deployment issues&#xa;• Alert on failures" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3E0D1;fontColor=#2D5D47;fontSize=12;fontStyle=0;strokeColor=#8FCCC8;strokeWidth=2;align=left;spacingLeft=20;spacingTop=15;spacingBottom=10;" parent="1" vertex="1">
+                    <mxGeometry x="625" y="980" width="350" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#8FCCC8;strokeWidth=2.5;endArrow=triangle;" parent="1" source="verification" target="closed" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="closed" value="Incident Closed&#xa;Post-mortem &amp; Lessons Learned" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B3E0D1;fontColor=#2D5D47;fontSize=13;fontStyle=1;strokeColor=#8FCCC8;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="675" y="1150" width="250" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="time-2h" value="&lt; 2 hours" style="text;html=1;fontSize=11;fontStyle=2;align=right;verticalAlign=top;fontColor=#888888;" parent="1" vertex="1">
+                    <mxGeometry x="1000" y="360" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="time-48h" value="0 - 48 hours" style="text;html=1;fontSize=11;fontStyle=2;align=right;verticalAlign=top;fontColor=#888888;" parent="1" vertex="1">
+                    <mxGeometry x="1000" y="820" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="time-post" value="Post-incident" style="text;html=1;fontSize=11;fontStyle=2;align=right;verticalAlign=top;fontColor=#888888;" parent="1" vertex="1">
+                    <mxGeometry x="1000" y="1150" width="120" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
