@@ -176,7 +176,17 @@ body {
 }
 
 /* ── Single post ── */
+.post-single .entry-cover {
+    display: flex;
+    justify-content: center;
+}
+
 .post-single .entry-cover img {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    margin: 0 auto;
     border-radius: var(--radius);
     box-shadow: var(--card-shadow);
 }
