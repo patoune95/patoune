@@ -8,7 +8,7 @@ tags:
   - policy
   - governance
 cover:
-  image: cover.jpg
+  image: cover.jpeg
   alt: "Azure policy Custom message"
   relative: true
 ---
