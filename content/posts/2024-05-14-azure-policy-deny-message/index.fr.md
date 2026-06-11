@@ -9,7 +9,7 @@ tags:
   - governance
 cover:
   image: cover.jpg
-  alt: "Azure policy Custome message"
+  alt: "Azure policy Custom message"
   relative: true
 ---
 
