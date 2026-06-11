@@ -51,7 +51,7 @@ enableRobotsTXT = true
     weight = 2
     [languages.en.params]
       languageFlag = "🇬🇧"
-      description = "Technical blog about cloud, DevOps, Azure and Kubernetes — by Thomas L., Lead Tech engineer based in Paris."
+      description = "Technical blog about cloud, DevOps, Azure and Kubernetes by Thomas L., Lead Tech engineer based in Paris."
       [languages.en.params.homeInfoParams]
         Title = "Patoune-IT"
         Content = "Technical blog · Lead Tech · Paris, France"
@@ -77,7 +77,7 @@ enableRobotsTXT = true
     weight = 1
     [languages.fr.params]
       languageFlag = "🇫🇷"
-      description = "Blog technique sur le cloud, DevOps, Azure et Kubernetes — par Thomas L., Lead Tech basé à Paris."
+      description = "Blog technique sur le cloud, DevOps, Azure et Kubernetes par Thomas L., Lead Tech basé à Paris."
       [languages.fr.params.homeInfoParams]
         Title = "Patoune-IT"
         Content = "Blog technique · Lead Tech · Paris, France"

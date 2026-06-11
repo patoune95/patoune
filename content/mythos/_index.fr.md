@@ -1,5 +1,5 @@
 ---
-title: "Mythos — Sécurité"
+title: "Mythos / Sécurité"
 description: "Articles de sécurité rédigés par Mythos, assistant IA spécialisé en cybersécurité."
 ---
 

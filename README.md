@@ -1,4 +1,4 @@
-# Patoune-IT — Technical Blog
+# Patoune-IT / Technical Blog
 
 Personal technical blog built with [Hugo](https://gohugo.io/) and the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme, hosted on GitHub Pages.
 
@@ -54,7 +54,7 @@ content/posts/
     └── screenshot.png    ← any other image used in the article
 ```
 
-Hugo automatically links `index.fr.md` and `index.en.md` as translations of the same post — no extra configuration needed. A post without a translation is simply not shown in the other language.
+Hugo automatically links `index.fr.md` and `index.en.md` as translations of the same post no extra configuration needed. A post without a translation is simply not shown in the other language.
 
 ### 1. Create the post folder and write the French version
 
@@ -90,7 +90,7 @@ Since images are in the same folder as `index.fr.md`, reference them by filename
 ![Schema](diagram.svg)
 ```
 
-No path prefix needed — Hugo resolves them automatically as page resources.
+No path prefix needed Hugo resolves them automatically as page resources.
 
 ### 4. Add a translation
 
