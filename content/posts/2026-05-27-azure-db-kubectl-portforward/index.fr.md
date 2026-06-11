@@ -135,7 +135,7 @@ Ne laisse pas ce pod tourner indéfiniment : il ouvre une porte réseau vers ta 
 
 Cette technique est pratique mais doit rester **réservée aux usages de développement ou de débogage ponctuels** :
 
-- Le pod `socat` n'a aucune authentification propre — toute personne pouvant exécuter `kubectl port-forward` sur ce pod peut atteindre la base.
+- Le pod `socat` n'a aucune authentification propre, toute personne pouvant exécuter `kubectl port-forward` sur ce pod peut atteindre la base.
 - Limite les droits RBAC : seul le namespace concerné devrait autoriser la création de pods et l'usage de `port-forward`.
 - Pense à supprimer le pod dès que la session est terminée.
 - Pour un accès récurrent, préfère une solution comme **Azure Bastion** ou un **VPN point-to-site** vers le VNet Azure.

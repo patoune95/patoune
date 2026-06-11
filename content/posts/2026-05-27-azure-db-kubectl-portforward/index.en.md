@@ -135,7 +135,7 @@ Do not leave this pod running indefinitely: it opens a network gateway to your d
 
 This technique is handy but must remain **reserved for development or one-off debugging use cases**:
 
-- The `socat` pod has no authentication of its own — anyone who can run `kubectl port-forward` on that pod can reach the database.
+- The `socat` pod has no authentication of its own anyone who can run `kubectl port-forward` on that pod can reach the database.
 - Restrict RBAC rights: only the relevant namespace should allow pod creation and `port-forward` usage.
 - Remember to delete the pod as soon as the session is over.
 - For recurring access, prefer a solution like **Azure Bastion** or a **point-to-site VPN** to the Azure VNet.
