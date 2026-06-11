@@ -20,7 +20,7 @@ Taints and Tolerations let you **repel** pods from certain nodes. It is the inve
 
 A **Taint** is placed on a **node**: it signals that the node does not accept pods by default. A **Toleration** is declared in a **pod**: it allows the pod to tolerate a specific Taint and be scheduled on that node.
 
-Example — adding and removing a taint:
+Example : adding and removing a taint:
 
 ```bash
 # Apply a Taint to a node
@@ -152,10 +152,10 @@ The two can be combined: a Taint to reserve a node, Node Affinity to attract the
 
 Taints and Tolerations are simple in appearance but very powerful in practice. They allow you to segment a cluster without multiplying clusters: reserved GPU nodes, isolated maintenance nodes, critical workloads protected from noisy neighbours. This can also be used to separate different technical tiers (e.g. frontend/backend) and to guarantee dedicated capacity when needed.
 
-The key takeaway: a Taint without a matching Toleration blocks — and `NoExecute` is the only effect that acts on already-running pods. Choose the effect based on whether you want to protect a node going forward or drain it cleanly.
+The key takeaway: a Taint without a matching Toleration blocks and `NoExecute` is the only effect that acts on already-running pods. Choose the effect based on whether you want to protect a node going forward or drain it cleanly.
 
 In production, Taints are almost always combined with Node Affinity: Taints prevent unwanted pods from landing on a node, Node Affinity attracts the right pods toward that same node. One repels, the other attracts. Together they give precise placement control without ambiguity and allow you to structure pod placement according to your business and technical constraints.
 
 ## Link
 
-- [Taints and Tolerations — Kubernetes Documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+- [Taints and Tolerations : Kubernetes Documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)

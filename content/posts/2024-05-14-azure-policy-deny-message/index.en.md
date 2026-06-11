@@ -7,6 +7,10 @@ tags:
   - azure
   - policy
   - governance
+cover:
+  image: cover.jpg
+  alt: "Azure policy Custome message"
+  relative: true
 ---
 
 By default, when an Azure Policy blocks an operation, the returned message is generic and hard to act on.

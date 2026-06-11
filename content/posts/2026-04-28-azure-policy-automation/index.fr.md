@@ -314,7 +314,7 @@ Les `overrides` ARM ne permettent pas de cibler une souscription spécifique dan
 2. Créer un assignment dédié à `sampleSubscription` avec l'override sur `deny-keyvault-public-access`
 
 ```hcl
-# Assignment de base au niveau MG — sampleSubscription exclu
+# Assignment de base au niveau MG - sampleSubscription exclu
 resource "azapi_resource" "assignment_bu2_prd_keyvault" {
   type      = "Microsoft.Authorization/policyAssignments@2025-01-01"
   name      = "initiative-keyvault-bu2-prd"
@@ -476,14 +476,14 @@ Pour aller plus loin, il manque un outil capable de piloter ce cycle de vie de b
 
 ## Liens
 
-- [Effets Azure Policy — Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-basics)
-- [Effet AuditIfNotExists — Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-audit-if-not-exists)
-- [Effet DenyAction — Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-deny-action)
-- [Structure d'un assignment Azure Policy — Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/assignment-structure)
-- [Structure d'une exemption Azure Policy — Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/exemption-structure)
-- [Safe deployment practices for Azure Policy — Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/how-to/policy-safe-deployment-practices)
-- [Remédier les ressources non-conformes — Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/how-to/remediate-resources)
-- [CAF — Management groups design area — Microsoft Learn](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups)
-- [Provider azapi — Terraform Registry](https://registry.terraform.io/providers/Azure/azapi/latest/docs)
-- [Référence API Microsoft.Authorization/policyDefinitions — Microsoft Learn](https://learn.microsoft.com/en-us/azure/templates/microsoft.authorization/policydefinitions)
-- [Référence API Microsoft.Authorization/policyAssignments — Microsoft Learn](https://learn.microsoft.com/en-us/azure/templates/microsoft.authorization/policyassignments)
+- [Effets Azure Policy : Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-basics)
+- [Effet AuditIfNotExists : Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-audit-if-not-exists)
+- [Effet DenyAction : Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-deny-action)
+- [Structure d'un assignment Azure Policy : Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/assignment-structure)
+- [Structure d'une exemption Azure Policy : Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/exemption-structure)
+- [Safe deployment practices for Azure Policy : Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/how-to/policy-safe-deployment-practices)
+- [Remédier les ressources non-conformes : Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/how-to/remediate-resources)
+- [CAF : Management groups design area : Microsoft Learn](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups)
+- [Provider azapi : Terraform Registry](https://registry.terraform.io/providers/Azure/azapi/latest/docs)
+- [Référence API Microsoft.Authorization/policyDefinitions : Microsoft Learn](https://learn.microsoft.com/en-us/azure/templates/microsoft.authorization/policydefinitions)
+- [Référence API Microsoft.Authorization/policyAssignments : Microsoft Learn](https://learn.microsoft.com/en-us/azure/templates/microsoft.authorization/policyassignments)

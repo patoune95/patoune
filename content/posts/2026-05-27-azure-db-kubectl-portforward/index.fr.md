@@ -34,7 +34,7 @@ Le flux est le suivant :
 - Accès au namespace cible (droits de créer un Pod et d'utiliser `port-forward`)
 - Le nom d'hôte de ta base Azure (ex. : `patoune-server.postgres.database.azure.com`)
 
-## Étape 1 — Déployer le pod socat
+## Étape 1 - Déployer le pod socat
 
 Crée un manifeste `socat-pod.yaml` :
 
@@ -73,7 +73,7 @@ Attends que le pod soit `Running` :
 kubectl get pod socat-db -w
 ```
 
-## Étape 2 — Ouvrir le tunnel avec kubectl port-forward
+## Étape 2 - Ouvrir le tunnel avec kubectl port-forward
 
 ```bash
 kubectl port-forward pod/socat-db 5432:5432
@@ -88,7 +88,7 @@ Forwarding from 127.0.0.1:5432 -> 5432
 Forwarding from [::1]:5432 -> 5432
 ```
 
-## Étape 3 — Se connecter avec ton client SQL
+## Étape 3 - Se connecter avec ton client SQL
 
 ### Avec psql
 

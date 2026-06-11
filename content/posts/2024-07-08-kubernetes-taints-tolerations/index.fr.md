@@ -152,10 +152,10 @@ Les deux peuvent être combinés : Taint pour réserver un node, Node Affinity p
 
 Les Taints et Tolerations sont un mécanisme simple en apparence mais très puissants en pratique. Ils permettent de segmenter un cluster sans multiplier les clusters : nodes GPU réservés, nodes de maintenance isolés, workloads critiques protégés des voisins bruyants. Ceci peux aussi fonctionner pour séparer vos différents bloc techniques (ex: Front/Back) mais aussi pour garantir un espace dédié au besoin.
 
-Le point clé à retenir : une Taint sans Toleration correspondante bloque — et `NoExecute` est le seul effet qui agit sur les pods déjà en place. Bien choisir l'effet selon que vous voulez protéger un node pour l'avenir ou le vider proprement.
+Le point clé à retenir : une Taint sans Toleration correspondante bloque  et `NoExecute` est le seul effet qui agit sur les pods déjà en place. Bien choisir l'effet selon que vous voulez protéger un node pour l'avenir ou le vider proprement.
 
 En production, les Taints se combinent presque toujours avec la Node Affinity : les Taints empêchent les pods indésirables d'atterrir sur un node, la Node Affinity attire les pods voulus vers ce même node. L'un repousse, l'autre attire. Ensemble ils donnent un contrôle précis du placement sans ambiguïté et permettent de bien structurer la disposition de ses pods celon ses contraintes métier et/ou techniques.
 
 ## Lien
 
-- [Taints and Tolerations — Kubernetes Documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+- [Taints and Tolerations : Kubernetes Documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)

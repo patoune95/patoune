@@ -7,6 +7,10 @@ tags:
   - azure
   - policy
   - governance
+cover:
+  image: cover.jpg
+  alt: "Azure policy Custome message"
+  relative: true
 ---
 
 Par défaut, lorsqu'une Azure Policy bloque une opération, le message retourné est générique et peu exploitable.
